@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mediterranean Escape V3 | Marseille & MSC World Europa</title>
+  <meta name="description" content="A luxurious travel microsite for Marseille and MSC World Europa, designed for easy use on mobile during the trip." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f0e8;
+      --bg-soft:#fbf8f4;
+      --ink:#22313a;
+      --muted:#6d7a83;
+      --sand:#efe4d4;
+      --gold:#af8859;
+      --gold-2:#d8c2a2;
+      --white:#fff;
+      --card:rgba(255,255,255,.78);
+      --line:rgba(34,49,58,.10);
+      --shadow:0 22px 70px rgba(34,49,58,.10);
+      --shadow-soft:0 12px 36px rgba(34,49,58,.08);
+      --radius:28px;
+      --max:1280px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.92), transparent 32%),
+        linear-gradient(180deg, #f7f2eb 0%, #f3ede5 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    img{max-width:100%; display:block}
+    .container{width:min(var(--max), calc(100% - 28px)); margin:0 auto}
+    .serif{font-family:"Cormorant Garamond",serif}
+    .eyebrow,.pill,.tag,.chip{letter-spacing:.12em; text-transform:uppercase}
+    .section{padding:84px 0}
+    .grid{display:grid; gap:18px}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-4{grid-template-columns:repeat(4,1fr)}
+
+    .nav{
+      position:sticky; top:0; z-index:1200;
+      backdrop-filter:blur(20px);
+      background:rgba(246,240,232,.76);
+      border-bottom:1px solid rgba(34,49,58,.08);
+    }
+    .nav-inner{
+      min-height:74px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{
+      font-family:"Cormorant Garamond",serif; font-size:32px; font-weight:700; line-height:.9;
+    }
+    .brand small{
+      display:block; margin-top:8px; font-family:Inter,sans-serif;
+      font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.18em;
+    }
+    .nav-links{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .nav-links a{
+      text-decoration:none; font-size:14px; color:var(--muted);
+      padding:10px 12px; border-radius:999px; transition:.22s ease;
+    }
+    .nav-links a:hover,.nav-links a.active{
+      background:rgba(255,255,255,.86); color:var(--ink)
+    }
+
+    .hero{
+      min-height:100vh;
+      position:relative;
+      color:#fff;
+      display:grid;
+      align-items:end;
+      overflow:hidden;
+      isolation:isolate;
+      background:#111;
+    }
+    .hero-slide{
+      position:absolute; inset:0;
+      background-size:cover; background-position:center;
+      opacity:0; transform:scale(1.05);
+      transition:opacity 1s ease, transform 8s ease;
+    }
+    .hero-slide.active{opacity:1; transform:scale(1)}
+    .hero-overlay{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(12,18,23,.12) 0%, rgba(12,18,23,.26) 28%, rgba(12,18,23,.70) 100%),
+        radial-gradient(circle at 14% 14%, rgba(255,255,255,.12), transparent 22%),
+        radial-gradient(circle at 84% 22%, rgba(255,255,255,.08), transparent 18%);
+      z-index:1;
+    }
+    .hero-overlay::after{
+      content:"";
+      position:absolute; inset:auto 0 0 0; height:190px;
+      background:linear-gradient(180deg, transparent, rgba(246,240,232,1));
+    }
+    .hero-grid{
+      position:relative; z-index:2;
+      display:grid; grid-template-columns:1.15fr .9fr; gap:22px;
+      align-items:end;
+      padding:94px 0 82px;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center;
+      padding:10px 14px; border-radius:999px;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
+      font-size:12px; backdrop-filter:blur(16px);
+    }
+    .hero h1{
+      margin:18px 0 18px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(56px, 8vw, 110px);
+      line-height:.90; letter-spacing:-.045em;
+      max-width:840px;
+    }
+    .hero-copy{
+      max-width:720px; color:rgba(255,255,255,.88);
+      font-size:18px; line-height:1.8;
+    }
+    .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:28px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      min-height:54px; padding:0 22px; border-radius:999px; text-decoration:none; font-weight:700;
+      transition:.22s ease; border:1px solid transparent;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:#fff; color:#22313a}
+    .btn-secondary{background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.22)}
+    .glass{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:30px; padding:24px;
+      backdrop-filter:blur(20px);
+      box-shadow:0 24px 64px rgba(0,0,0,.16);
+    }
+    .pill{
+      display:inline-flex; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      background:#f4eadb; color:#7d5a31; font-size:12px; font-weight:800;
+    }
+    .mini-grid{
+      display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:14px;
+    }
+    .stat{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.10);
+      border-radius:20px; padding:14px;
+    }
+    .stat strong{
+      display:block; font-size:11px; color:rgba(255,255,255,.76);
+      text-transform:uppercase; letter-spacing:.10em;
+    }
+    .stat span{display:block; margin-top:7px; font-weight:600}
+    .countdown{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px;
+    }
+    .count-box{
+      padding:16px 12px; border-radius:20px; text-align:center;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.15);
+    }
+    .count-box b{
+      display:block; font-family:"Cormorant Garamond",serif; font-size:32px; line-height:1;
+    }
+    .count-box span{
+      display:block; margin-top:8px; font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.78);
+    }
+    .hero-dots{
+      display:flex; gap:8px; margin-top:18px;
+    }
+    .hero-dot{
+      width:36px; height:4px; border-radius:999px; background:rgba(255,255,255,.24); overflow:hidden;
+    }
+    .hero-dot span{
+      display:block; height:100%; width:0; background:#fff;
+      transition:width 5.5s linear;
+    }
+    .hero-dot.active span{width:100%}
+
+    .section-head{
+      display:flex; justify-content:space-between; gap:24px; align-items:end; flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+    .section-head h2{
+      margin:0; font-family:"Cormorant Garamond",serif;
+      font-size:58px; line-height:.94; letter-spacing:-.03em;
+    }
+    .section-head p{max-width:720px; margin:0; color:var(--muted); line-height:1.85}
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+    }
+    .pad{padding:24px}
+    .card h3{margin:0 0 10px; font-size:24px}
+    .card p{margin:0; color:var(--muted); line-height:1.8}
+
+    .moodboard{display:grid; grid-template-columns:1.15fr .95fr .95fr; gap:18px}
+    .mood{
+      min-height:370px; border-radius:28px; overflow:hidden; position:relative; box-shadow:var(--shadow);
+      background-size:cover; background-position:center;
+    }
+    .mood::after{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.34));
+    }
+    .mood-copy{
+      position:absolute; left:20px; right:20px; bottom:18px; z-index:2; color:#fff;
+    }
+    .mood-copy strong{
+      display:block; font-family:"Cormorant Garamond",serif; font-size:34px; line-height:1;
+    }
+    .mood-copy span{display:block; margin-top:8px; color:rgba(255,255,255,.90)}
+
+    .story-row{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .editorial{
+      display:grid; grid-template-columns:1.05fr .95fr; gap:18px;
+      background:#fff; border:1px solid var(--line); border-radius:30px; overflow:hidden; box-shadow:var(--shadow-soft);
+    }
+    .editorial-media{min-height:100%; background-size:cover; background-position:center}
+    .editorial-copy{padding:28px}
+    .editorial-copy h3{
+      margin:10px 0 8px; font-family:"Cormorant Garamond",serif; font-size:40px; line-height:.96;
+    }
+    .editorial-copy p{margin:0; color:var(--muted); line-height:1.85}
+    .list-lite{margin:16px 0 0; padding-left:18px; color:var(--muted); line-height:1.85}
+
+    .today-card{
+      background:linear-gradient(135deg, #f7efe3, #fffdf9);
+      border:1px solid rgba(34,49,58,.08); border-radius:30px; padding:24px;
+      box-shadow:var(--shadow);
+    }
+    .today-card h3{
+      margin:10px 0 10px; font-size:32px; font-family:"Cormorant Garamond",serif; line-height:.95;
+    }
+    .today-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:14px}
+    .today-box{
+      background:#fff; border:1px solid var(--line); border-radius:20px; padding:14px;
+    }
+    .today-box strong{
+      display:block; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.10em
+    }
+    .today-box span{display:block; margin-top:8px; line-height:1.6}
+
+    .itinerary-cards{display:grid; gap:16px}
+    .day-card{
+      display:grid; grid-template-columns:280px 1fr;
+      background:#fff; border:1px solid var(--line); border-radius:28px; overflow:hidden; box-shadow:var(--shadow-soft);
+    }
+    .day-card-media{
+      min-height:100%; position:relative; background-size:cover; background-position:center;
+    }
+    .day-card-media::after{
+      content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.34));
+    }
+    .day-no{
+      position:absolute; z-index:2; left:18px; top:18px;
+      width:58px; height:58px; border-radius:50%; display:grid; place-items:center;
+      background:rgba(255,255,255,.92); color:#22313a; font-weight:800; font-size:22px;
+      box-shadow:0 12px 28px rgba(0,0,0,.12);
+    }
+    .day-card-content{padding:24px}
+    .day-head{
+      display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap;
+    }
+    .day-title{
+      margin:0; font-family:"Cormorant Garamond",serif; font-size:33px; letter-spacing:-.02em;
+    }
+    .day-sub{margin:6px 0 0; color:var(--muted)}
+    .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .chip{
+      padding:9px 12px; border-radius:999px;
+      background:#f5eee5; color:#7b592f; font-size:12px; font-weight:800;
+    }
+    .split{display:grid; grid-template-columns:1.1fr .9fr; gap:16px; margin-top:18px}
+    .soft{
+      background:#faf7f3; border:1px solid rgba(34,49,58,.07); border-radius:20px; padding:16px;
+    }
+    .soft h5{
+      margin:0 0 10px; font-size:13px; color:var(--muted);
+      letter-spacing:.08em; text-transform:uppercase;
+    }
+    .soft ul{margin:0; padding-left:18px; color:var(--muted); line-height:1.8}
+
+    .ports-wrap{
+      display:grid; grid-auto-flow:column; grid-auto-columns:minmax(300px, 340px);
+      gap:16px; overflow-x:auto; padding-bottom:8px; scroll-snap-type:x proximity;
+    }
+    .ports-wrap::-webkit-scrollbar{height:10px}
+    .ports-wrap::-webkit-scrollbar-thumb{background:#d8ccb8; border-radius:999px}
+    .port-card{
+      scroll-snap-align:start;
+      background:#fff; border:1px solid var(--line); border-radius:28px; overflow:hidden; box-shadow:var(--shadow-soft);
+    }
+    .port-media{height:210px; background-size:cover; background-position:center}
+    .port-body{padding:22px}
+    .port-body h3{margin:0 0 8px; font-size:28px; font-family:"Cormorant Garamond",serif}
+    .port-meta{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0}
+    .tag{
+      padding:8px 10px; border-radius:999px; font-size:12px; font-weight:700;
+      background:#f6efe6; color:#7c5d33;
+    }
+
+    .map-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+    .map-card{overflow:hidden}
+    .map-frame{width:100%; height:300px; border:none}
+    .map-meta{padding:20px}
+    .map-meta h3{margin:0 0 10px}
+    .tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+
+    .restaurant-grid{display:grid; gap:16px}
+    .restaurant{
+      display:grid; grid-template-columns:140px 1fr;
+      background:#fff; border:1px solid var(--line); border-radius:24px; overflow:hidden; box-shadow:var(--shadow-soft);
+    }
+    .restaurant-thumb{min-height:100%; background-size:cover; background-position:center}
+    .restaurant-body{padding:18px}
+    .restaurant-body h3{margin:0 0 8px; font-size:24px}
+    .restaurant-body p{margin:0; color:var(--muted); line-height:1.8}
+    .link-btn{display:inline-flex; margin-top:14px; text-decoration:none; font-weight:700; color:#6f4e24}
+
+    .accordion{display:grid; gap:14px}
+    .acc-item{
+      background:#fff; border:1px solid var(--line); border-radius:24px; overflow:hidden; box-shadow:var(--shadow-soft);
+    }
+    .acc-trigger{
+      width:100%; background:none; border:none; cursor:pointer; text-align:left;
+      padding:20px 22px; font:inherit; display:flex; justify-content:space-between; gap:18px; align-items:center;
+    }
+    .acc-trigger h3{margin:0; font-size:22px}
+    .acc-trigger span{font-size:24px; color:var(--gold); font-weight:700}
+    .acc-panel{
+      max-height:0; overflow:hidden; transition:max-height .35s ease;
+    }
+    .acc-panel-inner{padding:0 22px 22px}
+    .checklist{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+    .check-item{
+      display:flex; gap:12px; align-items:flex-start; padding:14px 0;
+      border-bottom:1px dashed rgba(34,49,58,.12);
+    }
+    .check-item:last-child{border-bottom:none}
+    .tick{
+      width:24px; height:24px; border-radius:50%; flex:0 0 24px; margin-top:2px;
+      display:grid; place-items:center; border:1.5px solid var(--gold); color:var(--gold); font-weight:800;
+    }
+
+    .concierge-grid .card{padding:22px}
+    .concierge-grid h3{font-size:18px}
+
+    .links-list{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+    .link-card{
+      padding:18px 20px; text-decoration:none; border-radius:22px; background:#fff;
+      border:1px solid var(--line); box-shadow:var(--shadow-soft);
+    }
+    .link-card strong{display:block; font-size:17px}
+    .link-card span{display:block; margin-top:8px; color:var(--muted); line-height:1.75}
+
+    .fab{
+      position:fixed; right:16px; bottom:16px; z-index:1500;
+      display:grid; gap:10px;
+    }
+    .fab a{
+      display:flex; align-items:center; justify-content:center;
+      width:54px; height:54px; border-radius:50%;
+      text-decoration:none; background:rgba(34,49,58,.92); color:#fff;
+      box-shadow:0 18px 42px rgba(34,49,58,.22);
+      backdrop-filter:blur(10px);
+    }
+
+    .reveal{opacity:0; transform:translateY(32px); transition:all .85s cubic-bezier(.2,.7,.2,1)}
+    .reveal.active{opacity:1; transform:translateY(0)}
+
+    footer{padding:34px 0 60px}
+    .footer-box{
+      background:rgba(255,255,255,.80); border:1px solid var(--line); border-radius:28px;
+      padding:28px; box-shadow:var(--shadow);
+    }
+    .footer-box .quote{
+      font-family:"Cormorant Garamond",serif; font-size:34px; line-height:.98; margin:10px 0;
+    }
+    .small{font-size:13px; color:var(--muted)}
+
+    @media (max-width:1100px){
+      .hero-grid,.grid-2,.grid-3,.grid-4,.moodboard,.story-row,.split,.map-grid,.links-list,.checklist{grid-template-columns:1fr}
+      .day-card{grid-template-columns:1fr}
+      .day-card-media{min-height:280px}
+      .editorial{grid-template-columns:1fr}
+      .restaurant{grid-template-columns:1fr}
+      .restaurant-thumb{min-height:180px}
+    }
+    @media (max-width:760px){
+      .nav-links{display:none}
+      .hero{min-height:auto}
+      .hero-grid{padding:78px 0 56px}
+      .hero h1{font-size:58px}
+      .section-head h2{font-size:46px}
+      .brand{font-size:25px}
+      .mini-grid,.countdown,.today-grid{grid-template-columns:repeat(2,1fr)}
+      .fab{right:12px; bottom:12px}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">Mediterranean Escape<small>Marseille · MSC World Europa · April 2026</small></div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#story">Style</a>
+        <a href="#itinerary">Itinerary</a>
+        <a href="#ports">Ports</a>
+        <a href="#transport">Transport</a>
+        <a href="#food">Food</a>
+        <a href="#packing">Packing</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1800&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1800&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1800&q=80')"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-grid">
+      <div class="reveal active">
+        <div class="eyebrow">Luxury travel microsite · cinematic carousel · GitHub Pages ready</div>
+        <h1>Marseille first.<br>Then the ship.<br>Then the memory.</h1>
+        <p class="hero-copy">A more luxurious V3 built to feel less like a nice itinerary page and more like a boutique travel experience: image-led, gently animated, and structured so the trip stays exciting without ever becoming too hectic.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#itinerary">Open the itinerary</a>
+          <a class="btn btn-secondary" href="#today">See today / tomorrow</a>
+        </div>
+        <div class="hero-dots" id="heroDots">
+          <div class="hero-dot active"><span></span></div>
+          <div class="hero-dot"><span></span></div>
+          <div class="hero-dot"><span></span></div>
+          <div class="hero-dot"><span></span></div>
+        </div>
+      </div>
+      <div class="glass reveal active">
+        <div class="pill">Trip at a glance</div>
+        <div class="mini-grid">
+          <div class="stat"><strong>Travel dates</strong><span>1–11 April 2026</span></div>
+          <div class="stat"><strong>Cruise</strong><span>4–11 April · 7 nights</span></div>
+          <div class="stat"><strong>Ship</strong><span>MSC World Europa</span></div>
+          <div class="stat"><strong>Cabin</strong><span>15101 · Fantastica · Balcony</span></div>
+          <div class="stat"><strong>Family</strong><span>2 adults + 1 child</span></div>
+          <div class="stat"><strong>Trip mode</strong><span>Balanced, active, low-friction</span></div>
+        </div>
+        <div style="margin-top:18px" class="pill">Countdown to departure</div>
+        <div class="countdown" id="countdown">
+          <div class="count-box"><b id="days">--</b><span>Days</span></div>
+          <div class="count-box"><b id="hours">--</b><span>Hours</span></div>
+          <div class="count-box"><b id="mins">--</b><span>Minutes</span></div>
+          <div class="count-box"><b id="secs">--</b><span>Seconds</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="overview" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="pill">Overview</div>
+          <h2>The right rhythm for this trip</h2>
+        </div>
+        <p>The winning pattern is not to maximise every minute. It is to layer contrast: harbour arrival, one strong Marseille day, one active Calanques day, then a cruise where the ship gets used properly and port days stay controlled rather than frantic.</p>
+      </div>
+      <div class="grid grid-4">
+        <div class="card pad"><h3>1 Apr</h3><p>Arrival, apartment check-in, Vieux-Port, relaxed dinner.</p></div>
+        <div class="card pad"><h3>2 Apr</h3><p>Notre-Dame, Le Panier, Mucem and harbour atmosphere.</p></div>
+        <div class="card pad"><h3>3 Apr</h3><p>Calanques family hiking day — scenic and manageable.</p></div>
+        <div class="card pad"><h3>4–11 Apr</h3><p>MSC World Europa with selective, well-paced port days.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="pill">Travel mood</div>
+          <h2>The site should feel like the trip feels</h2>
+        </div>
+        <p>Light-rich, sea-facing, elegant, and quietly exciting. Less spreadsheet. More boutique travel journal with concierge intelligence built in.</p>
+      </div>
+      <div class="moodboard">
+        <div class="mood" style="background-image:url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80')">
+          <div class="mood-copy"><strong>Sea time</strong><span>Balcony mornings, sail-away, sea-day reset, and one beautiful dinner.</span></div>
+        </div>
+        <div class="mood" style="background-image:url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1200&q=80')">
+          <div class="mood-copy"><strong>Marseille</strong><span>Warm stone, bright water, layered streets, slow lunches.</span></div>
+        </div>
+        <div class="mood" style="background-image:url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80')">
+          <div class="mood-copy"><strong>Port days</strong><span>Selective, photogenic, and never overpacked.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="today" class="section reveal">
+    <div class="container story-row">
+      <div class="editorial">
+        <div class="editorial-media" style="background-image:url('https://images.unsplash.com/photo-1529154036614-a60975f5c760?auto=format&fit=crop&w=1200&q=80')"></div>
+        <div class="editorial-copy">
+          <div class="pill">Luxury move</div>
+          <h3>Think in chapters, not sections</h3>
+          <p>The trip works best when each day has a mood: arrival, city, nature, embarkation, easy port, high-attention port, recovery port, sea day, final-city finish. That emotional variety is what prevents boredom.</p>
+          <ul class="list-lite">
+            <li>One main thing per day</li>
+            <li>One optional extra</li>
+            <li>One built-in quiet hour</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="today-card">
+        <div class="pill">Live trip card</div>
+        <h3 id="liveTitle">Trip status</h3>
+        <p id="liveBlurb" style="margin:0; color:var(--muted); line-height:1.8">Smart daily use card for what matters most today and what comes next.</p>
+        <div class="today-grid">
+          <div class="today-box"><strong>Today</strong><span id="todayPlan">Marseille arrival, Vieux-Port, soft start.</span></div>
+          <div class="today-box"><strong>Watch for</strong><span id="todayWatch">Keep the first evening light and easy.</span></div>
+          <div class="today-box"><strong>Tomorrow</strong><span id="tomorrowPlan">Classic Marseille day with Notre-Dame, Le Panier and waterfront.</span></div>
+          <div class="today-box"><strong>Best move</strong><span id="bestMove">Save energy for the stronger sightseeing days.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="itinerary" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="pill">Day-by-day</div>
+          <h2>The trip, day by day</h2>
+        </div>
+        <p>Presented more editorially, but still practical enough to use in real time while you are in Marseille or on the ship.</p>
+      </div>
+
+      <div class="itinerary-cards">
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">1</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Wed 1 Apr · Arrival in Marseille</h3><div class="day-sub">A soft landing, not a performance day.</div></div>
+              <div class="pill">Low energy day</div>
+            </div>
+            <div class="chips">
+              <div class="chip">10:35 depart STN</div>
+              <div class="chip">13:35 arrive MRS</div>
+              <div class="chip">15:00 apartment check-in</div>
+            </div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Airport, transfer, settle in</li><li>Late afternoon Vieux-Port walk</li><li>Easy dinner nearby</li><li>Optional grocery stop for breakfast supplies</li></ul></div>
+              <div class="soft"><h5>Luxury move</h5><ul><li>Do less than you feel you should; it improves the whole trip</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">2</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Thu 2 Apr · Classic Marseille</h3><div class="day-sub">Views, old quarter and waterfront in the right order.</div></div>
+              <div class="pill">Medium pace</div>
+            </div>
+            <div class="chips">
+              <div class="chip">09:00–10:30 Notre-Dame</div>
+              <div class="chip">11:00–13:00 Le Panier</div>
+              <div class="chip">14:30–17:30 Mucem / waterfront</div>
+            </div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Taxi or Uber up to Notre-Dame</li><li>Slow Le Panier wander and lunch</li><li>Mucem / cathedral frontage / sea walk in the afternoon</li></ul></div>
+              <div class="soft"><h5>Optional extra</h5><ul><li>Golden-hour pass through Vieux-Port if energy is still good</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">3</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Fri 3 Apr · Calanques / Dhruv Day</h3><div class="day-sub">Nature and movement before the ship.</div></div>
+              <div class="pill">Active day</div>
+            </div>
+            <div class="chips">
+              <div class="chip">Short / moderate route</div>
+              <div class="chip">Hydration matters</div>
+              <div class="chip">Pack lightly at night</div>
+            </div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Leave prepared with water, hats and proper shoes</li><li>Choose scenery over mileage</li><li>Picnic or lunch after the walk</li><li>Return and keep the evening light</li></ul></div>
+              <div class="soft"><h5>Rule</h5><ul><li>Leave the hike wanting a little more, not regretting it</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">4</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Sat 4 Apr · Embarkation Day</h3><div class="day-sub">Smooth start beats squeezing in one last city sight.</div></div>
+              <div class="pill">Transition day</div>
+            </div>
+            <div class="chips">
+              <div class="chip">10:00 checkout</div>
+              <div class="chip">11:00 check-in opens</div>
+              <div class="chip">18:00 sailing</div>
+            </div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Taxi / rideshare to Gate 4</li><li>Lunch first once onboard</li><li>Ship orientation: buffet, theatre, pools, kids club, sports, gym</li><li>Safety, settle, balcony sail-away</li></ul></div>
+              <div class="soft"><h5>Best first-night move</h5><ul><li>Easy dinner, one show block, no overcommitted late night</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">5</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Sun 5 Apr · Genoa</h3><div class="day-sub">An easy family day, kept local and pleasant.</div></div>
+              <div class="pill">Low–medium pace</div>
+            </div>
+            <div class="chips"><div class="chip">08:00 arrival</div><div class="chip">18:00 departure</div><div class="chip">Old port style</div></div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Old port / aquarium area</li><li>Lunch ashore or back onboard</li><li>Return with margin</li></ul></div>
+              <div class="soft"><h5>Avoid</h5><ul><li>Overextending this into a stressful day trip</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1529154036614-a60975f5c760?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">6</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Mon 6 Apr · Rome via Civitavecchia</h3><div class="day-sub">The hardest logistics day; restraint makes it good.</div></div>
+              <div class="pill">High attention day</div>
+            </div>
+            <div class="chips"><div class="chip">One Rome zone only</div><div class="chip">Return early</div><div class="chip">Excursion worth considering</div></div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Organised ship transfer if you want lowest stress</li><li>Otherwise choose one Rome cluster only</li><li>Start back earlier than feels necessary</li></ul></div>
+              <div class="soft"><h5>Choose one</h5><ul><li>Colosseum / Forum</li><li>or Trevi / Pantheon / Spanish Steps</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">7</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Tue 7 Apr · Messina</h3><div class="day-sub">Recovery day. Lunch, wandering, back onboard refreshed.</div></div>
+              <div class="pill">Low pace</div>
+            </div>
+            <div class="chips"><div class="chip">12:00 arrival</div><div class="chip">20:00 departure</div><div class="chip">Simple local afternoon</div></div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Late-morning slow start onboard</li><li>Easy central stroll, lunch and gelato</li><li>Early return if the ship is calling louder than the city</li></ul></div>
+              <div class="soft"><h5>Purpose</h5><ul><li>This day protects the rest of the cruise from fatigue</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">8</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Wed 8 Apr · Valletta</h3><div class="day-sub">Compact, photogenic and rewarding.</div></div>
+              <div class="pill">Medium pace</div>
+            </div>
+            <div class="chips"><div class="chip">09:00 arrival</div><div class="chip">17:00 departure</div><div class="chip">Views + gardens + old town</div></div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Upper Barrakka and harbour views</li><li>Old city wandering and lunch</li><li>One extra scenic stop</li></ul></div>
+              <div class="soft"><h5>Why it works</h5><ul><li>Very rewarding without becoming chaotic</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">9</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Thu 9 Apr · Sea Day</h3><div class="day-sub">The cruise becomes a holiday here.</div></div>
+              <div class="pill">Signature ship day</div>
+            </div>
+            <div class="chips"><div class="chip">Morning active</div><div class="chip">Afternoon 2–3 chosen experiences</div><div class="chip">Evening special night</div></div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Sports / pool / kids activities</li><li>Long lunch + balcony downtime</li><li>Choose a few experiences only</li><li>Show + nicer dinner</li></ul></div>
+              <div class="soft"><h5>Best paid extra day</h5><ul><li>If you want one specialty dinner, this is the night</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">10</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Fri 10 Apr · Barcelona</h3><div class="day-sub">Compact highlights only; elegant, not exhausting.</div></div>
+              <div class="pill">Medium pace</div>
+            </div>
+            <div class="chips"><div class="chip">08:00 arrival</div><div class="chip">18:00 departure</div><div class="chip">One main area + one optional extra</div></div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Choose a compact area with good lunch options</li><li>Use atmosphere, not ambition, as the guide</li><li>Return with plenty of buffer</li></ul></div>
+              <div class="soft"><h5>Best mindset</h5><ul><li>Barcelona is a taste, not a box-ticking exercise</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-card reveal">
+          <div class="day-card-media" style="background-image:url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1200&q=80')"><div class="day-no">11</div></div>
+          <div class="day-card-content">
+            <div class="day-head">
+              <div><h3 class="day-title">Sat 11 Apr · Return to Marseille + Fly Home</h3><div class="day-sub">Use the day room; keep the final day graciously simple.</div></div>
+              <div class="pill">Smooth finish</div>
+            </div>
+            <div class="chips"><div class="chip">08:00 return to Marseille</div><div class="chip">09:00–17:00 day room</div><div class="chip">22:15 flight</div></div>
+            <div class="split">
+              <div class="soft"><h5>Best flow</h5><ul><li>Disembark, shower and reset at Novotel Euroméd</li><li>One easy final outing only</li><li>Airport calmly</li></ul></div>
+              <div class="soft"><h5>Rule</h5><ul><li>Comfort beats squeezing in one more attraction</li></ul></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ports" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="pill">Swipeable port cards</div><h2>Port strategy, in a cleaner form</h2></div>
+        <p>Each port has its own right pace. Swipe horizontally on mobile to move through the cards.</p>
+      </div>
+
+      <div class="ports-wrap">
+        <div class="port-card">
+          <div class="port-media" style="background-image:url('https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="port-body">
+            <h3>Genoa</h3>
+            <div class="port-meta"><span class="tag">Low stress</span><span class="tag">Family day</span><span class="tag">Local</span></div>
+            <p>Old port and aquarium area. This port rewards simplicity.</p>
+          </div>
+        </div>
+        <div class="port-card">
+          <div class="port-media" style="background-image:url('https://images.unsplash.com/photo-1529154036614-a60975f5c760?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="port-body">
+            <h3>Rome</h3>
+            <div class="port-meta"><span class="tag">High attention</span><span class="tag">One zone only</span><span class="tag">Return early</span></div>
+            <p>The trip’s hardest logistics day. An excursion is one of the few paid add-ons truly worth considering.</p>
+          </div>
+        </div>
+        <div class="port-card">
+          <div class="port-media" style="background-image:url('https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="port-body">
+            <h3>Messina</h3>
+            <div class="port-meta"><span class="tag">Recovery port</span><span class="tag">Low pace</span><span class="tag">Back onboard early</span></div>
+            <p>Simple walk, lunch, gelato, and no heroic planning.</p>
+          </div>
+        </div>
+        <div class="port-card">
+          <div class="port-media" style="background-image:url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="port-body">
+            <h3>Valletta</h3>
+            <div class="port-meta"><span class="tag">DIY strong</span><span class="tag">Photogenic</span><span class="tag">Walkable</span></div>
+            <p>One of the most rewarding independent walking ports on the trip.</p>
+          </div>
+        </div>
+        <div class="port-card">
+          <div class="port-media" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="port-body">
+            <h3>Barcelona</h3>
+            <div class="port-meta"><span class="tag">Compact highlights</span><span class="tag">Atmosphere-led</span><span class="tag">Buffer essential</span></div>
+            <p>Keep it elegant and compact, not maximal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="transport" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="pill">Transport + maps</div><h2>The movement layer</h2></div>
+        <p>Built around the transfers that actually matter. The apartment map uses central <strong>13001 Marseille</strong> as a practical anchor because the exact street address was not provided.</p>
+      </div>
+
+      <div class="map-grid">
+        <div class="card map-card">
+          <iframe class="map-frame" loading="lazy" src="https://www.google.com/maps?q=13001%20Marseille%20France&output=embed"></iframe>
+          <div class="map-meta">
+            <div class="pill">Apartment base</div>
+            <h3>Central 13001 Marseille</h3>
+            <p>Your first-three-night city anchor for Vieux-Port, Le Panier and Notre-Dame days.</p>
+            <div class="tag-row"><span class="tag">City base</span><span class="tag">Walkable areas</span></div>
+          </div>
+        </div>
+
+        <div class="card map-card">
+          <iframe class="map-frame" loading="lazy" src="https://www.google.com/maps?q=Port%20of%20Marseille%20Gate%204%20Chemin%20du%20Littoral%2013015%20Marseille&output=embed"></iframe>
+          <div class="map-meta">
+            <div class="pill">Cruise terminal</div>
+            <h3>Gate 4 · Marseille Provence Cruise Terminal</h3>
+            <p>Embarkation and disembarkation target. Taxi or rideshare is the simplest move.</p>
+            <div class="tag-row"><span class="tag">Embarkation</span><span class="tag">Taxi easiest</span></div>
+          </div>
+        </div>
+
+        <div class="card map-card">
+          <iframe class="map-frame" loading="lazy" src="https://www.google.com/maps?q=Novotel%20Suites%20Marseille%20Centre%20Eurom%C3%A9d%2033%20Boulevard%20de%20Dunkerque%2013002%20Marseille&output=embed"></iframe>
+          <div class="map-meta">
+            <div class="pill">Final-day reset</div>
+            <h3>Novotel Suites Marseille Centre Euroméd</h3>
+            <p>Your best post-cruise recovery move: shower, rest, charge phones, and keep the final day feeling civilized.</p>
+            <div class="tag-row"><span class="tag">Day room</span><span class="tag">Luggage-friendly</span></div>
+          </div>
+        </div>
+
+        <div class="card map-card">
+          <iframe class="map-frame" loading="lazy" src="https://www.google.com/maps?q=Marseille%20Provence%20Airport&output=embed"></iframe>
+          <div class="map-meta">
+            <div class="pill">Airport</div>
+            <h3>Marseille Provence Airport</h3>
+            <p>For the return flight, keep the final airport run calm rather than hyper-optimised.</p>
+            <div class="tag-row"><span class="tag">Arrival</span><span class="tag">Departure</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:18px">
+        <div class="card pad"><h3>Airport → apartment</h3><p><strong>Easiest:</strong> taxi or rideshare direct to 13001. <strong>Budget route:</strong> airport shuttle to Saint-Charles, then taxi / metro onward.</p></div>
+        <div class="card pad"><h3>Apartment → cruise port</h3><p><strong>Best:</strong> taxi / rideshare direct to Gate 4. <strong>Public route:</strong> Metro Line 2 to Joliette, then 35T or cruise-day shuttle arrangements.</p></div>
+        <div class="card pad"><h3>Ship → Novotel</h3><p>Use the cruise shuttle toward Joliette, then a short taxi / rideshare or short walk if luggage is manageable.</p></div>
+        <div class="card pad"><h3>Novotel → airport</h3><p><strong>Lowest friction:</strong> taxi / rideshare. <strong>Budget:</strong> Saint-Charles then airport shuttle.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="food" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="pill">Food</div><h2>Indian, vegetarian, and easy wins</h2></div>
+        <p>These make the Marseille part of the trip easier and more personal, especially if you want one reliable Indian meal and one lighter vegetarian stop before the cruise.</p>
+      </div>
+      <div class="restaurant-grid">
+        <div class="restaurant">
+          <div class="restaurant-thumb" style="background-image:url('https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80')"></div>
+          <div class="restaurant-body">
+            <div class="pill">Indian · Vieux-Port area</div>
+            <h3>Sri Ganesh</h3>
+            <p>A dependable option around the Vieux-Port / Place aux Huiles area when you want something familiar and central.</p>
+            <a class="link-btn" href="https://www.sriganesh.fr/" target="_blank" rel="noopener">Open official site →</a>
+          </div>
+        </div>
+        <div class="restaurant">
+          <div class="restaurant-thumb" style="background-image:url('https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80')"></div>
+          <div class="restaurant-body">
+            <div class="pill">Indian · central Marseille</div>
+            <h3>Preity India</h3>
+            <p>Family-friendly and practical, with vegetarian options clearly positioned.</p>
+            <a class="link-btn" href="https://preity-india.com/" target="_blank" rel="noopener">Open official site →</a>
+          </div>
+        </div>
+        <div class="restaurant">
+          <div class="restaurant-thumb" style="background-image:url('https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80')"></div>
+          <div class="restaurant-body">
+            <div class="pill">Vegetarian · 13001</div>
+            <h3>Grain de Sable</h3>
+            <p>A clean pre-cruise pick if you want a lighter, more seasonal vegetarian meal near your base area.</p>
+            <a class="link-btn" href="https://www.graindesable.net/" target="_blank" rel="noopener">Open official site →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="packing" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="pill">Packing + checklists</div><h2>Cleaner, easier, expandable</h2></div>
+        <p>The accordions below keep the page elegant while still making all the practical detail easy to reach on mobile.</p>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-item">
+          <button class="acc-trigger"><h3>Pre-board checklist</h3><span>+</span></button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="checklist">
+                <div>
+                  <div class="check-item"><div class="tick">✓</div><div>Passports packed and easy to access</div></div>
+                  <div class="check-item"><div class="tick">✓</div><div>MSC booking details saved offline</div></div>
+                  <div class="check-item"><div class="tick">✓</div><div>Ryanair app installed and boarding passes ready</div></div>
+                  <div class="check-item"><div class="tick">✓</div><div>Hotel confirmations saved offline</div></div>
+                </div>
+                <div>
+                  <div class="check-item"><div class="tick">✓</div><div>Medication in hand luggage</div></div>
+                  <div class="check-item"><div class="tick">✓</div><div>One small port-day backpack ready</div></div>
+                  <div class="check-item"><div class="tick">✓</div><div>Chargers and power bank packed</div></div>
+                  <div class="check-item"><div class="tick">✓</div><div>Cards and euros organised</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger"><h3>Packing highlights</h3><span>+</span></button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="checklist">
+                <div>
+                  <div class="check-item"><div class="tick">•</div><div>Passports, cruise docs, hotel confirmations</div></div>
+                  <div class="check-item"><div class="tick">•</div><div>Swimwear, pool sandals, gym / sportswear</div></div>
+                  <div class="check-item"><div class="tick">•</div><div>One nicer evening outfit</div></div>
+                  <div class="check-item"><div class="tick">•</div><div>Comfortable walking shoes</div></div>
+                </div>
+                <div>
+                  <div class="check-item"><div class="tick">•</div><div>Hats, sunscreen and refillable bottle</div></div>
+                  <div class="check-item"><div class="tick">•</div><div>Snacks, tissues and wipes for port days</div></div>
+                  <div class="check-item"><div class="tick">•</div><div>Power bank and cables</div></div>
+                  <div class="check-item"><div class="tick">•</div><div>Motion sickness tablets / bands just in case</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger"><h3>Concierge notes</h3><span>+</span></button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="grid grid-4 concierge-grid">
+                <div class="card"><h3>Do not overpack</h3><p>You need overlap between city, ship and port days — not endless outfit changes.</p></div>
+                <div class="card"><h3>Return early</h3><p>Coming back to the ship early protects the entire mood of the cruise.</p></div>
+                <div class="card"><h3>One quiet hour daily</h3><p>Balcony time, coffee time or room downtime keeps everyone regulated.</p></div>
+                <div class="card"><h3>Sea day must be planned</h3><p>Large ships are best enjoyed intentionally, not randomly.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="links" class="section reveal">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="pill">Useful links</div><h2>Keep these one tap away</h2></div>
+        <p>The links below support onboard planning, terminal access, airport shuttles and Marseille practicalities.</p>
+      </div>
+      <div class="links-list">
+        <a class="link-card" target="_blank" rel="noopener" href="https://www.msccruises.com/int/our-cruises/ships/msc-world-europa"><strong>MSC World Europa</strong><span>Official ship page for family areas, venues and onboard highlights.</span></a>
+        <a class="link-card" target="_blank" rel="noopener" href="https://www.msccruises.co.uk/msc-experiences"><strong>Fantastica benefits</strong><span>Official explanation of what Fantastica includes.</span></a>
+        <a class="link-card" target="_blank" rel="noopener" href="https://www.msccruises.co.uk/onboard/family/kids-clubs"><strong>MSC kids club</strong><span>Useful if Dhruv wants more onboard activity variety.</span></a>
+        <a class="link-card" target="_blank" rel="noopener" href="https://www.marseille-tourisme.com/en/organize-your-stay/practical-information/access-to-marseille-cruise-port/"><strong>Marseille cruise port access</strong><span>Official transport guidance for the terminal.</span></a>
+        <a class="link-card" target="_blank" rel="noopener" href="https://www.marseille-port.fr/en/cruise-passengers"><strong>Port of Marseille cruise page</strong><span>Official Gate 4 passenger information.</span></a>
+        <a class="link-card" target="_blank" rel="noopener" href="https://www.marseille-airport.com/access-car-parks/access/bus/marseille-st-charles-station"><strong>Airport shuttle</strong><span>Official airport shuttle page for Saint-Charles.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-box">
+        <strong style="display:block; font-size:18px">Final rule</strong>
+        <div class="quote">Make it memorable, not maximal.</div>
+        <div class="small">The best luxury move on this trip is not spending more. It is pacing it better.</div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fab">
+    <a href="#itinerary" aria-label="Itinerary">☰</a>
+    <a href="#transport" aria-label="Maps">⌖</a>
+    <a href="#packing" aria-label="Packing">✓</a>
+  </div>
+
+  <script>
+    // Hero carousel
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    let current = 0;
+    function showSlide(i){
+      slides.forEach((s,idx)=>s.classList.toggle('active', idx===i));
+      dots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
+    }
+    setInterval(()=>{
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }, 5500);
+
+    // Countdown
+    const target = new Date("2026-04-01T10:35:00+01:00").getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = '<div class="count-box" style="grid-column:1/-1"><b>Bon voyage</b><span>You should be in Marseille mode now.</span></div>';
+        return;
+      }
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById("days").textContent = d;
+      document.getElementById("hours").textContent = String(h).padStart(2,"0");
+      document.getElementById("mins").textContent = String(m).padStart(2,"0");
+      document.getElementById("secs").textContent = String(s).padStart(2,"0");
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, {threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Accordions
+    document.querySelectorAll('.acc-item').forEach(item => {
+      const btn = item.querySelector('.acc-trigger');
+      const panel = item.querySelector('.acc-panel');
+      const icon = btn.querySelector('span');
+      btn.addEventListener('click', () => {
+        const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+        document.querySelectorAll('.acc-panel').forEach(p => p.style.maxHeight = null);
+        document.querySelectorAll('.acc-trigger span').forEach(s => s.textContent = '+');
+        if(!open){
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          icon.textContent = '–';
+        }
+      });
+    });
+
+    // Dynamic today/tomorrow card
+    const plans = [
+      {
+        date:"2026-04-01", title:"Arrival mode",
+        blurb:"Today is about landing well, not doing too much.",
+        today:"Vieux-Port walk, easy dinner, early reset.",
+        watch:"Keep the first evening light.",
+        tomorrow:"Classic Marseille: Notre-Dame, Le Panier, waterfront.",
+        move:"Save energy for the strong city day."
+      },
+      {
+        date:"2026-04-02", title:"Marseille city day",
+        blurb:"This is the main city-sightseeing chapter.",
+        today:"Notre-Dame, Le Panier, Mucem / waterfront.",
+        watch:"Use taxis strategically, not heroically.",
+        tomorrow:"Calanques family hiking day.",
+        move:"Lunch in the old quarter keeps the day smooth."
+      },
+      {
+        date:"2026-04-03", title:"Nature day",
+        blurb:"Scenic movement before the ship.",
+        today:"Calanques short / moderate route and early-ish return.",
+        watch:"Water, hats and proper shoes matter.",
+        tomorrow:"Embarkation day and ship orientation.",
+        move:"Pack lightly tonight."
+      },
+      {
+        date:"2026-04-04", title:"Embarkation",
+        blurb:"The cruise begins properly if the first afternoon is used well.",
+        today:"Port, lunch onboard, orientation, balcony sail-away.",
+        watch:"Do not wander hungry.",
+        tomorrow:"Genoa kept local and easy.",
+        move:"Find kids club, sports area and theatre today."
+      },
+      {
+        date:"2026-04-05", title:"Easy port day",
+        blurb:"A low-stress family day sets the tone well.",
+        today:"Genoa old port / aquarium area.",
+        watch:"No over-ambitious regional detour.",
+        tomorrow:"Rome, the trip’s hardest logistics day.",
+        move:"Back to ship with buffer."
+      },
+      {
+        date:"2026-04-06", title:"Rome day",
+        blurb:"Restraint is the whole game.",
+        today:"One Rome zone only, then start back early.",
+        watch:"Do not try to complete Rome.",
+        tomorrow:"Messina recovery day.",
+        move:"An organised transfer is worth real consideration."
+      },
+      {
+        date:"2026-04-07", title:"Recovery port",
+        blurb:"Let Sicily stay easy and pleasant.",
+        today:"Messina lunch, stroll, gelato, low pressure.",
+        watch:"Do not turn this into a heavy day.",
+        tomorrow:"Valletta walking day.",
+        move:"If the ship is more appealing, go back early."
+      },
+      {
+        date:"2026-04-08", title:"Valletta day",
+        blurb:"Compact, photogenic, rewarding.",
+        today:"Harbour views, old town, gardens, lunch.",
+        watch:"Keep it compact even though it feels easy.",
+        tomorrow:"Sea day — the most important ship day.",
+        move:"Back onboard with energy left."
+      },
+      {
+        date:"2026-04-09", title:"Sea day",
+        blurb:"This is where the cruise becomes a holiday.",
+        today:"Sports or pool, balcony downtime, show, nicer dinner.",
+        watch:"Unplanned sea days can feel oddly flat.",
+        tomorrow:"Barcelona compact highlights.",
+        move:"Pick 2–3 onboard experiences only."
+      },
+      {
+        date:"2026-04-10", title:"Barcelona day",
+        blurb:"Treat this like a taste, not a checklist.",
+        today:"One compact area plus one optional extra.",
+        watch:"Return with proper buffer.",
+        tomorrow:"Final Marseille reset + airport.",
+        move:"Atmosphere beats over-planning."
+      },
+      {
+        date:"2026-04-11", title:"Final day",
+        blurb:"End the trip with grace, not rush.",
+        today:"Novotel reset, one easy outing, calm airport transfer.",
+        watch:"Do not squeeze in a last big attraction.",
+        tomorrow:"Home.",
+        move:"Comfort wins."
+      }
+    ];
+    const nowDate = new Date().toISOString().slice(0,10);
+    const match = plans.find(p => p.date === nowDate) || plans[0];
+    document.getElementById('liveTitle').textContent = match.title;
+    document.getElementById('liveBlurb').textContent = match.blurb;
+    document.getElementById('todayPlan').textContent = match.today;
+    document.getElementById('todayWatch').textContent = match.watch;
+    document.getElementById('tomorrowPlan').textContent = match.tomorrow;
+    document.getElementById('bestMove').textContent = match.move;
+
+    // Active nav links
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const secObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          navLinks.forEach(a => a.classList.remove('active'));
+          const link = document.querySelector('.nav-links a[href="#' + entry.target.id + '"]');
+          if(link) link.classList.add('active');
+        }
+      });
+    }, {threshold:0.3});
+    sections.forEach(s => secObserver.observe(s));
+  </script>
+</body>
+</html>
